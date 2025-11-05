@@ -1,0 +1,39 @@
+<ion-content>
+
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col>
+        <h3>Favoritos</h3>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+  <ion-grid *ngFor="let grupo of favoritoGenero">
+    <!-- Mostrar solo si hay películas -->
+    <ion-row *ngIf="grupo.pelis.length > 0">
+      <ion-col>
+        <h4>{{ grupo.genero }}</h4>
+      </ion-col>
+    </ion-row>
+
+
+    <swiper-container slides-per-view="3.3" free-mode="true" space-between="10">
+      <swiper-slide *ngFor="let peli of grupo.pelis">
+        <ion-card (click)="verDetalle(peli.id!)">
+          <img
+            class="poster"
+            [src]="peli.poster_path ? (peli.poster_path | imagen) : ''"
+            alt="{{ peli.title }}"
+          />
+        </ion-card>
+      </swiper-slide>
+    </swiper-container>
+
+  </ion-grid>
+
+  <div *ngIf="peliculas.length === 0" class="ion-text-center">
+    <p>No tienes películas en favoritos todavía </p>
+  </div>
+
+</ion-content>
